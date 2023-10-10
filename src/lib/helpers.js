@@ -1,0 +1,33 @@
+export async function getFileInfo(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      reject("error upload file");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onerror = () => {
+      reject("error read file");
+    };
+    reader.onload = () => {
+      const img = new Image();
+      img.src = reader.result;
+      img.onerror = () => {
+        reject("error read file");
+      };
+      img.onload = () => {
+        const info = {
+          name: file.name,
+          size: file.size,
+          width: img.width,
+          height: img.height,
+          base64: reader.result,
+          mime: file.type,
+        };
+
+        resolve(info);
+      };
+    };
+  });
+}
