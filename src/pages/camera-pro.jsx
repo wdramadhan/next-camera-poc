@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useState } from "react";
-import { getFileInfo, getFileInfoFromCamera } from "@/lib/helpers";
 import { Camera } from "react-camera-pro";
+import { getFileInfo, getFileInfoFromCamera } from "@/lib/helpers";
 
 export default function CameraPro() {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -76,7 +76,7 @@ export default function CameraPro() {
             type="file"
             id="id"
             name="id"
-            accept="image/png,image/jpeg"
+            accept="image/*"
             multiple
             className="hidden"
             onChange={handleInputChange}

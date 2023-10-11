@@ -1,15 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useState } from "react";
 import { getFileInfo } from "@/lib/helpers";
-import Webcam from "react-webcam";
-
-const videoConstraints = {
-  width: { ideal: 720 },
-  height: { ideal: 1280 },
-  frameRate: { ideal: 60 },
-  aspectRatio: 9 / 16,
-  facingMode: "environment",
-};
 
 export default function Camera() {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -43,36 +34,21 @@ export default function Camera() {
 
   return (
     <main>
-      <div className="relative">
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          screenshotQuality={1}
-          imageSmoothing
-          videoConstraints={videoConstraints}
-        />
-        <button
-          onClick={capture}
-          className="absolute bottom-5 left-40 bg-red-400 h-16 w-16 rounded-full"
-        />
-        <button
-          onClick={handleGaleryClick}
-          className="absolute bottom-6 left-6 bg-gray-600 h-12 w-12 rounded-lg"
-        />
-      </div>
+      <button
+        onClick={handleGaleryClick}
+        className="bg-gray-600 h-12 w-12 rounded-lg ml-4 mt-4"
+      />
       <input
         ref={inputGalleryRef}
         type="file"
         id="id"
         name="id"
-        accept="image/png,image/jpeg"
-        multiple
+        accept="image/*"
         className="hidden"
-        //   capture="environment"
+        capture="environment"
         onChange={handleInputChange}
       />
-      <div className="flex flex-col gap-3 mt-4">
+      <div className="flex flex-col gap-3 mt-">
         {selectedImages.map((image, index) => (
           <img
             src={image.base64}
