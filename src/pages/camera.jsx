@@ -43,9 +43,8 @@ export default function Camera() {
         type="file"
         id="id"
         name="id"
-        accept="image/*"
+        accept=".jpeg, .jpg, .png"
         className="hidden"
-        capture="environment"
         onChange={handleInputChange}
       />
       <div className="flex flex-col gap-3 mt-">
