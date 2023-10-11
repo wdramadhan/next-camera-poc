@@ -11,11 +11,6 @@ export default function Camera() {
     inputGalleryRef.current?.click();
   }
 
-  function capture() {
-    const imageSrc = webcamRef.current.getScreenshot();
-    console.log(imageSrc);
-  }
-
   async function handleInputChange(e) {
     try {
       const files = Array.from(e.target.files);
@@ -33,11 +28,13 @@ export default function Camera() {
   }
 
   return (
-    <main>
+    <main className="p-4">
       <button
         onClick={handleGaleryClick}
-        className="bg-gray-600 h-12 w-12 rounded-lg ml-4 mt-4"
-      />
+        className=" text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+      >
+        Select image
+      </button>
       <input
         ref={inputGalleryRef}
         type="file"
@@ -48,14 +45,13 @@ export default function Camera() {
         multiple
         onChange={handleInputChange}
       />
-      <div className="flex flex-col gap-3 mt-">
+      <div className="flex flex-wrap gap-3 mt-4">
         {selectedImages.map((image, index) => (
           <img
             src={image.base64}
             alt={image.name}
             key={index}
-            width={400}
-            height={400}
+            className="h-[100px] w-[100px] max-w-lg object-cover border-2 rounded-lg"
           />
         ))}
       </div>
