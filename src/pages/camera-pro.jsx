@@ -40,7 +40,7 @@ export default function CameraPro() {
   return (
     <main>
       <div className="relative">
-        <Camera ref={webcamRef} aspectRatio={9 / 16} />
+        <Camera ref={webcamRef} aspectRatio={9 / 16} facingMode="environment" />
         <button
           onClick={handleSwitchCamera}
           className="absolute top-8 right-8 bg-blue-400 h-8 w-8 rounded-full"
