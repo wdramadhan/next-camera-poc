@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useState } from "react";
-import { getFileInfo } from "@/lib/helpers";
+import { getFileInfo, getFileInfoFromCamera } from "@/lib/helpers";
 import { Camera } from "react-camera-pro";
 
 export default function CameraPro() {
@@ -12,9 +12,14 @@ export default function CameraPro() {
     inputGalleryRef.current?.click();
   }
 
-  function capture() {
-    const imageSrc = webcamRef.current.takePhoto();
-    console.log(imageSrc);
+  async function capture() {
+    try {
+      const imageBase64 = webcamRef.current.takePhoto();
+      const image = await getFileInfoFromCamera(imageBase64);
+      setSelectedImages([image]);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function handleSwitchCamera() {
@@ -39,43 +44,64 @@ export default function CameraPro() {
 
   return (
     <main>
-      <div className="relative">
-        <Camera ref={webcamRef} aspectRatio={9 / 16} facingMode="environment" />
-        <button
-          onClick={handleSwitchCamera}
-          className="absolute top-8 right-8 bg-blue-400 h-8 w-8 rounded-full"
-        />
-        <button
-          onClick={capture}
-          className="absolute bottom-5 left-40 bg-red-400 h-16 w-16 rounded-full"
-        />
-        <button
-          onClick={handleGaleryClick}
-          className="absolute bottom-6 left-6 bg-gray-600 h-12 w-12 rounded-lg"
-        />
-      </div>
-      <input
-        ref={inputGalleryRef}
-        type="file"
-        id="id"
-        name="id"
-        accept="image/png,image/jpeg"
-        multiple
-        className="hidden"
-        //   capture="environment"
-        onChange={handleInputChange}
-      />
-      <div className="flex flex-col gap-3 mt-4">
-        {selectedImages.map((image, index) => (
-          <img
-            src={image.base64}
-            alt={image.name}
-            key={index}
-            width={400}
-            height={400}
+      {!selectedImages.length ? (
+        <>
+          <div className="relative">
+            <Camera
+              ref={webcamRef}
+              aspectRatio={9 / 16}
+              facingMode="environment"
+            />
+            <button
+              onClick={() => {
+                history.back();
+              }}
+              className="absolute top-6 left-6  bg-gray-800 h-8 w-8 rounded-full"
+            />
+            <button
+              onClick={handleSwitchCamera}
+              className="absolute top-6 right-6 bg-blue-400 h-8 w-8 rounded-full"
+            />
+            <button
+              onClick={capture}
+              className="absolute bottom-5 left-40 bg-red-400 h-16 w-16 rounded-full"
+            />
+            <button
+              onClick={handleGaleryClick}
+              className="absolute bottom-6 left-6 bg-gray-600 h-12 w-12 rounded-lg"
+            />
+          </div>
+          <input
+            ref={inputGalleryRef}
+            type="file"
+            id="id"
+            name="id"
+            accept="image/png,image/jpeg"
+            multiple
+            className="hidden"
+            onChange={handleInputChange}
           />
-        ))}
-      </div>
+        </>
+      ) : (
+        <div className="flex flex-col gap-4 relative">
+          <button
+            onClick={() => {
+              setSelectedImages([]);
+            }}
+            className="absolute top-6 left-6  bg-gray-800 h-8 w-8 rounded-full"
+          />
+
+          {selectedImages.map((image, index) => (
+            <img
+              src={image.base64}
+              alt={image.name}
+              key={index}
+              width={400}
+              height={400}
+            />
+          ))}
+        </div>
+      )}
     </main>
   );
 }

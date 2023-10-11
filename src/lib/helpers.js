@@ -31,3 +31,30 @@ export async function getFileInfo(file) {
     };
   });
 }
+
+export async function getFileInfoFromCamera(base64) {
+  return new Promise((resolve, reject) => {
+    if (!base64) {
+      reject("error get file");
+      return;
+    }
+
+    const img = new Image();
+    img.src = base64;
+    img.onerror = () => {
+      reject("error read file");
+    };
+    img.onload = () => {
+      const info = {
+        name: "",
+        size: "",
+        width: img.width,
+        height: img.height,
+        base64: base64,
+        mime: "",
+      };
+
+      resolve(info);
+    };
+  });
+}
