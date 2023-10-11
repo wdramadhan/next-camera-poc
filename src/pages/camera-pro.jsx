@@ -1,17 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRef, useState } from "react";
 import { getFileInfo } from "@/lib/helpers";
-import Webcam from "react-webcam";
+import { Camera } from "react-camera-pro";
 
-const videoConstraints = {
-  width: { ideal: 720 },
-  height: { ideal: 1280 },
-  frameRate: { ideal: 60 },
-  aspectRatio: 9 / 16,
-  facingMode: "environment",
-};
-
-export default function Camera() {
+export default function CameraPro() {
   const [selectedImages, setSelectedImages] = useState([]);
   const inputGalleryRef = useRef(null);
   const webcamRef = useRef(null);
@@ -21,7 +13,7 @@ export default function Camera() {
   }
 
   function capture() {
-    const imageSrc = webcamRef.current.getScreenshot();
+    const imageSrc = webcamRef.current.takePhoto();
     console.log(imageSrc);
   }
 
@@ -44,14 +36,7 @@ export default function Camera() {
   return (
     <main>
       <div className="relative">
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          screenshotQuality={1}
-          imageSmoothing
-          videoConstraints={videoConstraints}
-        />
+        <Camera ref={webcamRef} aspectRatio={9 / 16} />
         <button
           onClick={capture}
           className="absolute bottom-5 left-40 bg-red-400 h-16 w-16 rounded-full"
