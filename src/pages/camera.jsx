@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { getFileInfo } from "@/lib/helpers";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
-  height: 1280,
-  width: 720,
+  width: { min: 480 },
+  height: { min: 720 },
+  aspectRatio: 0.5625,
   facingMode: "environment",
 };
 
@@ -18,10 +19,10 @@ export default function Camera() {
     inputGalleryRef.current?.click();
   }
 
-  const capture = useCallback(() => {
+  function capture() {
     const imageSrc = webcamRef.current.getScreenshot();
-    console.log("GGWP", imageSrc);
-  }, [webcamRef]);
+    console.log(imageSrc);
+  }
 
   async function handleInputChange(e) {
     try {
@@ -46,17 +47,17 @@ export default function Camera() {
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
-          width={720}
-          height={1280}
+          screenshotQuality={1}
+          imageSmoothing
           videoConstraints={videoConstraints}
         />
         <button
           onClick={capture}
-          className="absolute bottom-5 left-[40%] bg-red-400 h-16 w-16 rounded-full"
+          className="absolute bottom-5 left-40 bg-red-400 h-16 w-16 rounded-full"
         />
         <button
           onClick={handleGaleryClick}
-          className="absolute bottom-7 left-4 bg-gray-600 h-12 w-12 rounded-lg"
+          className="absolute bottom-6 left-6 bg-gray-600 h-12 w-12 rounded-lg"
         />
       </div>
       <input
