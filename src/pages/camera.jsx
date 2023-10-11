@@ -4,9 +4,9 @@ import { getFileInfo } from "@/lib/helpers";
 import Webcam from "react-webcam";
 
 const videoConstraints = {
-  width: { min: 480 },
-  height: { min: 720 },
-  aspectRatio: 0.5625,
+  height: { ideal: 1920 },
+  frameRate: { ideal: 60 },
+  aspectRatio: 9 / 16,
   facingMode: "environment",
 };
 
