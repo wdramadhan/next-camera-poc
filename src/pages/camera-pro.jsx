@@ -7,7 +7,6 @@ export default function CameraPro() {
   const [selectedImages, setSelectedImages] = useState([]);
   const inputGalleryRef = useRef(null);
   const webcamRef = useRef(null);
-  const [cameraMode, setCamerMode] = useState("environtment");
 
   function handleGaleryClick() {
     inputGalleryRef.current?.click();
@@ -16,6 +15,10 @@ export default function CameraPro() {
   function capture() {
     const imageSrc = webcamRef.current.takePhoto();
     console.log(imageSrc);
+  }
+
+  function handleSwitchCamera() {
+    webcamRef.current.switchCamera();
   }
 
   async function handleInputChange(e) {
@@ -37,17 +40,9 @@ export default function CameraPro() {
   return (
     <main>
       <div className="relative">
-        <Camera ref={webcamRef} aspectRatio={9 / 16} facingMode={cameraMode} />
+        <Camera ref={webcamRef} aspectRatio={9 / 16} />
         <button
-          onClick={() =>
-            setCamerMode((curr) => {
-              if (curr === "user") {
-                return "environtment";
-              }
-
-              return "user";
-            })
-          }
+          onClick={handleSwitchCamera}
           className="absolute top-8 right-8 bg-blue-400 h-8 w-8 rounded-full"
         />
         <button
