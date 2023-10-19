@@ -13,7 +13,7 @@ const Scanner = (props) => {
         scanDelay={500}
         constraints={{
           facingMode: "environment",
-          aspectRatio: 9 / 16,
+          aspectRatio: 16 / 9,
         }}
         onResult={(result, error) => {
           if (!!result) {
