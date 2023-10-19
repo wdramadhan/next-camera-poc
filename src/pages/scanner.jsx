@@ -8,11 +8,12 @@ const Scanner = (props) => {
   return (
     <div style={{ height: "100vh" }}>
       <QrReader
-        // ViewFinder={ViewFinder}
+        ViewFinder={ViewFinder}
         videoId="video"
         scanDelay={500}
         constraints={{
           facingMode: "environment",
+          aspectRatio: 9 / 16,
         }}
         onResult={(result, error) => {
           if (!!result) {
@@ -23,9 +24,9 @@ const Scanner = (props) => {
             console.info(error);
           }
         }}
-        // videoContainerStyle={{
-        //   height: "700px",
-        // }}
+        videoContainerStyle={{
+          height: "700px",
+        }}
       />
       <p>{data}</p>
     </div>
