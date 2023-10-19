@@ -3,9 +3,8 @@ import { QrCodeReader } from "../components/QrCodeReader";
 
 const ScannerHtml = () => {
   const [result, setResult] = useState();
-  const onNewScanResult = (decodedText, decodedResult) => {
-    console.log(decodedResult);
-    setResult(decodedResult);
+  const onNewScanResult = (decodedText) => {
+    setResult(decodedText);
   };
 
   return (

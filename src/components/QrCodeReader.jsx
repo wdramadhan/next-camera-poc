@@ -8,7 +8,7 @@ const qrcodeRegionId = "html5qr-code-full-region";
 export const createConfig = (props) => {
   let config = {
     supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
-    aspectRatio: 9 / 16,
+    aspectRatio: 16 / 9,
   };
 
   if (props.fps) {
@@ -35,7 +35,7 @@ export const QrCodeReader = (props) => {
       { facingMode: "environment" },
       config,
       props.qrCodeSuccessCallback,
-      props.qrCodeErrorCallback
+      props?.qrCodeErrorCallback
     );
 
     return () => {
