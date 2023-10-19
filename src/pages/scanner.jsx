@@ -8,7 +8,7 @@ const Scanner = (props) => {
   return (
     <div style={{ height: "100vh" }}>
       <QrReader
-        ViewFinder={ViewFinder}
+        // ViewFinder={ViewFinder}
         videoId="video"
         scanDelay={500}
         constraints={{
