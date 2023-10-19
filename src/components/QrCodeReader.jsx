@@ -31,6 +31,7 @@ export const QrCodeReader = (props) => {
     const config = createConfig(props);
 
     const html5QrcodeScanner = new Html5Qrcode(qrcodeRegionId);
+
     const didStart = html5QrcodeScanner?.start(
       { facingMode: "environment" },
       config,
@@ -49,5 +50,5 @@ export const QrCodeReader = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div id={qrcodeRegionId} />;
+  return <div id={qrcodeRegionId} className="w-full z-10" />;
 };
